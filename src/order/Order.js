@@ -6,6 +6,11 @@ import {CartSummary} from "./CartSummary";
 
 export class Order extends Component {
 
+    handleAddToCart = (...args) => {
+        this.props.addToCart(...args);
+        this.props.history.push("/order/cart");
+    }
+
     render() {
         return <div className="container-fluid">
             <div className="row">
@@ -20,7 +25,7 @@ export class Order extends Component {
                                         categories={this.props.categories} />
                 </div>
                 <div className="col-9 p-2">
-                    <Menu items={ this.props.items} addToCart={ this.props.addToCart } />
+                    <Menu items={ this.props.items} addToCart={ this.handleAddToCart } />
                 </div>
             </div>
         </div>

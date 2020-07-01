@@ -6,11 +6,11 @@ export const CartReducer = (storeData, action) => {
     case ActionTypes.CART_ADD:
       const i = action.payload.item;
       const q = action.payload.quantity;
-      let existing = newStore.cart.find((i) => i.item.id === i.id);
+      let existing = newStore.cart.find(item => item.item.id === i.id);
       if (existing) {
-        existing.quantity += q;
+          existing.quantity += q;
       } else {
-        newStore.cart = [...newStore.cart, action.payload];
+          newStore.cart = [...newStore.cart, action.payload];
       }
       newStore.cartItems += q;
       newStore.cartPrice += q * i.price;
@@ -28,12 +28,13 @@ export const CartReducer = (storeData, action) => {
         }
       });
       return newStore;
+
     case ActionTypes.CART_REMOVE:
 
     const ir = newStore.cart.find( i => i.item.id === action.payload.id);
-    newStore.cart = newStore.cart.filter( i => i.item !== ir);
     newStore.cartItems -= ir.quantity;
-    newStore.cartPrice -= (ir.quantity * ir.item.price)
+    newStore.cartPrice -= (ir.quantity * ir.item.price);
+    newStore.cart = newStore.cart.filter( i => i !== ir);  
     return newStore;
 
     case ActionTypes.CART_CLEAR:

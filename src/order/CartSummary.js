@@ -11,7 +11,7 @@ export class CartSummary extends Component {
                 ${ this.props.cartPrice.toFixed(2)}
             </span>
         } else {
-            return <spann> Your cart is empty.</spann>
+            return <span> Your cart is empty.</span>
         }
     }
 

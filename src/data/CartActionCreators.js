@@ -13,7 +13,7 @@ export const updateCartQuantity = (item, quantity ) => ({
 
 export const removeFromCart = (item) => ({
     type: ActionTypes.CART_REMOVE,
-    payload: {item}
+    payload: item
 })
 
 export const clearCart = () => ({

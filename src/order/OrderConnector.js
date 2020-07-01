@@ -6,6 +6,7 @@ import {DataTypes} from '../data/Types';
 
 import {Order} from './Order';
 import {addToCart, updateCartQuantity, removeFromCart, clearCart} from "../data/CartActionCreators";
+import {CartDetails} from "./CartDetails";
 
 const mapStateToProps = (dataStore) => ({
     ...dataStore
@@ -26,6 +27,7 @@ export const OrderConnector = connect(mapStateToProps, mapDispatchToProps)(
                 render={ (routeProps) =>
                 <Order {...this.props} {...routeProps}
                  items={ filterItems(this.props.items, routeProps.match.params.category)} />}/>
+                 <Route path="/order/cart" render={ (routeProps) => <CartDetails { ...this.props} {... routeProps} />} />
               <Redirect to="/order/items" />
           </Switch>
         } 
