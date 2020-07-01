@@ -5,13 +5,14 @@ import {loadData} from '../data/ActionCreator';
 import {DataTypes} from '../data/Types';
 
 import {Order} from './Order';
+import {addToCart, updateCartQuantity, removeFromCart, clearCart} from "../data/CartActionCreators";
 
 const mapStateToProps = (dataStore) => ({
     ...dataStore
 })
 
 const mapDispatchToProps = {
-    loadData
+    loadData, addToCart, updateCartQuantity, removeFromCart, clearCart
 }
 
 const filterItems = ( items = [], category) =>

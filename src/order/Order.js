@@ -2,6 +2,7 @@ import React, {Component} from "react";
 
 import {CategoryNavigation} from "./CategoryNavigation";
 import {Menu} from './Menu';
+import {CartSummary} from "./CartSummary";
 
 export class Order extends Component {
 
@@ -10,6 +11,7 @@ export class Order extends Component {
             <div className="row">
                 <div className="col bg-dark text-white">
                     <div className="navbar-brand">FOOD TRUCK</div>
+                    <CartSummary {...this.props} />
                 </div>
             </div>
             <div className="row">
@@ -18,7 +20,7 @@ export class Order extends Component {
                                         categories={this.props.categories} />
                 </div>
                 <div className="col-9 p-2">
-                    <Menu items={ this.props.items} />
+                    <Menu items={ this.props.items} addToCart={ this.props.addToCart } />
                 </div>
             </div>
         </div>

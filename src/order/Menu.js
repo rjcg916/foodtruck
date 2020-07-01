@@ -15,6 +15,8 @@ export class Menu extends Component {
                 </h4>
                 <div className="card-text bg-white p-1">
                     { i.description}
+                    <button className="btn btn-success btn-sm float-right"
+                             onClick={ () => this.props.addToCart(i) }>Add To Cart</button>
                 </div>
             </div>)
     }
