@@ -5,7 +5,7 @@ export const data = {
       id: 1,
       name: "Cola",
       category: "Drinks",
-      description: "A classic refersher",
+      description: "A classic refresher",
       price: 1.5,
     },
     {
