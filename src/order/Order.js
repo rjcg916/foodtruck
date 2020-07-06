@@ -3,6 +3,10 @@ import React, {Component} from "react";
 import {CategoryNavigation} from "./CategoryNavigation";
 import {Menu} from './Menu';
 import {CartSummary} from "./CartSummary";
+import {ItemPageConnector} from './ItemPageConnector';
+import {PaginationControls} from "../PaginationControls";
+
+const ItemPages = ItemPageConnector(PaginationControls);
 
 export class Order extends Component {
 
@@ -25,6 +29,7 @@ export class Order extends Component {
                                         categories={this.props.categories} />
                 </div>
                 <div className="col-9 p-2">
+                    <ItemPages />
                     <Menu items={ this.props.items} addToCart={ this.handleAddToCart } />
                 </div>
             </div>

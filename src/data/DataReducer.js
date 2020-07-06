@@ -1,11 +1,17 @@
 import { ActionTypes } from './Types';
 
-export const DataReducer = (theData, action) => {
+export const DataReducer = (storeData, action) => {
     switch(action.type) {
         case ActionTypes.DATA_LOAD :
-            return {...theData, 
-            [action.payload.dataType] : action.payload.data};
+            return {...storeData, 
+            [action.payload.dataType] : action.payload.data,
+              [`${action.payload.dataType}_total`]: action.payload.total,
+            [`${action.payload.dataType}_params`]: action.payload.params};
+        case ActionTypes.DATA_SET_PAGESIZE:            
+            return {...storeData, pageSize: action.payload};
+        case ActionTypes.DATA_SET_SORTPROPERTY:
+            return {...storeData, sortKey: action.payload};
         default:
-            return theData || {};
+            return storeData || {};
     }
 }
