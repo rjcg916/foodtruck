@@ -11,8 +11,11 @@ export class RestDataSource {
     GetData = async(dataType, params) =>
        this.SendRequest("get", RestUrls[dataType], params)
 
-    SendRequest = (method, url, params) => 
+    StoreData = async(dataType, data) =>
+       this.SendRequest("post", RestUrls[dataType], {}, data )
+
+    SendRequest = (method, url, params, data) => 
         Axios.request({
-            method, url, params
+            method, url, params, data
         })
 }
