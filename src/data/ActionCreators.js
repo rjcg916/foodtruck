@@ -19,7 +19,7 @@ export const setSortProperty = (newSortproperty) =>
 
 export const placeOrder = (order) => ({
     type: ActionTypes.DATA_STORE,
-    payload: dataSource.StoreData(DataTypes.order, order).then ( response => ({
+    payload: dataSource.StoreData(DataTypes.ORDERS, order).then ( response => ({
         dataType: DataTypes.ORDERS, data: response.data
     })
 
