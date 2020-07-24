@@ -1,31 +1,22 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { loadData, placeOrder } from "../data/ActionCreators";
+import * as OrderActions from "../data/ActionCreators";
 import { DataTypes } from "../data/Types";
 import { Order } from "./Order";
-import {
-  addToCart,
-  updateCartQuantity,
-  removeFromCart,
-  clearCart,
-} from "../data/CartActionCreators";
+import * as CartActions from "../data/CartActionCreators";
 import { CartDetails } from "./CartDetails";
 import { DataGetter } from "../data/DataGetter";
 import { Checkout } from "./Checkout";
 import { Thanks } from "./Thanks";
 
-const mapStateToProps = (dataStore) => ({
+/* const mapStateToProps = (dataStore) => ({
   ...dataStore,
-});
+}); */
 
 const mapDispatchToProps = {
-  loadData,
-  addToCart,
-  updateCartQuantity,
-  removeFromCart,
-  clearCart,
-  placeOrder,
+  ...OrderActions,
+  ...CartActions,
 };
 
 /* const filterItems = ( items = [], category) =>
@@ -33,10 +24,31 @@ const mapDispatchToProps = {
  */
 
 export const OrderConnector = connect(
-  mapStateToProps,
+  ds => ds,
   mapDispatchToProps
 )(
   class extends Component {
+    selectComponent = (routeProps) => {
+      
+      const wrap = (Component, Content) => 
+        <Component {...this.props} {...routeProps}>
+          {Content && wrap(Content)}
+        </Component>
+      
+      switch (routeProps.match.params.section) {
+        case "items":
+          return wrap(DataGetter, Order);
+        case "cart":
+          return wrap(CartDetails);
+        case "checkout":
+          return wrap(Checkout);
+        case "thanks":
+          return wrap(Thanks);
+        default:
+          return <Redirect to="/order/items/all/1" />;
+      }
+    };
+
     render() {
       return (
         <Switch>
@@ -46,36 +58,13 @@ export const OrderConnector = connect(
             exact={true}
           />
           <Route
-            path={"/order/items/:category/:page"}
-            render={(routeProps) => (
-              <DataGetter {...this.props} {...routeProps}>
-                <Order {...this.props} {...routeProps} />
-              </DataGetter>
-            )}
+            path={"/order/:section?/:category?/:page?"}
+            render={routeProps => this.selectComponent(routeProps)}
           />
-          <Route
-            path="/order/cart"
-            render={(routeProps) => (
-              <CartDetails {...this.props} {...routeProps} />
-            )}
-          />
-          <Route
-            path="/order/checkout"
-            render={(routeProps) => (
-              <Checkout {...this.props} {...routeProps} />
-            )}
-          />
-          <Route
-            path="/order/thanks"
-            render={(routeProps) => <Thanks {...this.props} {...routeProps} />}
-          />
-          <Redirect to="/order/items/all/1" />
         </Switch>
       );
     }
-    componentDidMount() {
-      this.props.loadData(DataTypes.CATEGORIES);
-      // this.props.loadData(DataTypes.ITEMS);
-    }
+
+    componentDidMount = () => this.props.loadData(DataTypes.CATEGORIES);
   }
 );
